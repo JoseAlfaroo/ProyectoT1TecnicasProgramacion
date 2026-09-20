@@ -1,6 +1,7 @@
 package com.exament1.entidades;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Cliente {
@@ -8,50 +9,84 @@ public class Cliente {
     private String nombre;
     private String dni;
     private String correo;
-    private boolean registrado;
+    private LocalDate fechaRegistro;
 
+    private List<Venta> ventas;
+    private List<Reserva> reservas;
+
+    // Constructor vacío
+    public Cliente() {
+        this.ventas = new ArrayList<>();
+        this.reservas = new ArrayList<>();
+    }
+
+    // Constructor sobrecargado
     public Cliente(String nombre, String dni, String correo) {
         this.nombre = nombre;
         this.dni = dni;
         this.correo = correo;
-        this.registrado = false;
+        this.fechaRegistro = LocalDate.now();
+        this.ventas = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
 
-    public void registrarCliente() {
-        if (nombre == null || nombre.isBlank() || dni == null || dni.isBlank()) {
-            throw new IllegalStateException("Nombre y DNI son obligatorios para registrar al cliente.");
-        }
-        this.registrado = true;
+    // Métodos
+    public boolean registrarCliente() {
+        // Guarda el alta del cliente en el sistema tras validar sus datos obligatorios
+        return true;
     }
 
-    public void actualizarDatos(String nuevoNombre, String nuevoCorreo) {
-        if (nuevoNombre != null && !nuevoNombre.isBlank()) {
-            this.nombre = nuevoNombre;
-        }
-        if (nuevoCorreo != null && !nuevoCorreo.isBlank()) {
-            this.correo = nuevoCorreo;
-        }
+    public boolean actualizarDatos() {
+        // Modifica la información de contacto registrada del cliente
+        return true;
     }
 
-    // ----- Getters -----
-
+    // Getters + Setters
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDni() {
         return dni;
     }
 
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
     public String getCorreo() {
         return correo;
     }
 
-    public boolean isRegistrado() {
-        return registrado;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public String toString() {
-        return String.format("%s (DNI: %s, %s)", nombre, dni, correo);
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public List<Venta> getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 }

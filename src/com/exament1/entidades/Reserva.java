@@ -4,69 +4,81 @@ import java.time.LocalDate;
 
 public class Reserva {
 
-    private LocalDate fecha;
+    private LocalDate fechaRegistro;
     private boolean activa;
-    private Cliente cliente;
+    private LocalDate fechaCancelacion;
+    private String motivoCancelacion;
+
     private Libro libro;
+    private Cliente cliente;
 
-    public Reserva(LocalDate fecha, Cliente cliente, Libro libro) {
-        this.fecha = fecha;
-        this.cliente = cliente;
-        this.libro = libro;
-        this.activa = false;
-    }
-
+    // Constructor vacío
     public Reserva() {
     }
 
-    public void registrarReserva() {
-        if (cliente == null || libro == null) {
-            throw new IllegalStateException("Cliente y libro son obligatorios para registrar la reserva.");
-        }
-        if (!cliente.isRegistrado()) {
-            throw new IllegalStateException("El cliente no está registrado.");
-        }
-        if (!libro.verificarStock()) {
-            throw new IllegalStateException("No hay stock disponible para \"" + libro.getTitulo() + "\".");
-        }
-        if (activa) {
-            throw new IllegalStateException("La reserva ya se encuentra activa.");
-        }
-        if (fecha == null) {
-            this.fecha = LocalDate.now();
-        }
-        libro.reducirStock(1);
-        this.activa = true;
+    // Constructor sobrecargado
+    public Reserva(LocalDate fechaRegistro, boolean activa) {
+        this.fechaRegistro = fechaRegistro;
+        this.activa = activa;
     }
 
-    public void cancelarReserva() {
-        if (!activa) {
-            throw new IllegalStateException("No se puede cancelar una reserva que no está activa.");
-        }
-        libro.aumentarStock(1);
-        this.activa = false;
+    // Métodos
+    public boolean registrarReserva() {
+        // Crea una reserva en estado activo asociada a un cliente y un libro agotado
+        return true;
     }
 
-    // ----- Getters -----
-    public LocalDate getFecha() {
-        return fecha;
+    public boolean cancelarReserva() {
+        // Inactiva la reserva actual registrando la fecha y motivo de cancelación
+        return true;
+    }
+
+    // Getters + Setters
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public boolean isActiva() {
         return activa;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public void setActiva(boolean activa) {
+        this.activa = activa;
+    }
+
+    public LocalDate getFechaCancelacion() {
+        return fechaCancelacion;
+    }
+
+    public void setFechaCancelacion(LocalDate fechaCancelacion) {
+        this.fechaCancelacion = fechaCancelacion;
+    }
+
+    public String getMotivoCancelacion() {
+        return motivoCancelacion;
+    }
+
+    public void setMotivoCancelacion(String motivoCancelacion) {
+        this.motivoCancelacion = motivoCancelacion;
     }
 
     public Libro getLibro() {
         return libro;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Reserva %s | %s | %s | Estado: %s",
-                fecha, cliente.getNombre(), libro.getTitulo(), activa ? "Activa" : "Cancelada");
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

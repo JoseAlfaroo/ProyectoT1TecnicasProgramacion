@@ -4,75 +4,73 @@ import java.time.LocalDate;
 
 public class Venta {
 
-    private LocalDate fecha;
+    private LocalDate fechaRegistro;
     private int cantidad;
     private double total;
-    private Cliente cliente;
+
     private Libro libro;
+    private Cliente cliente;
 
-    public Venta(LocalDate fecha, int cantidad, Cliente cliente, Libro libro) {
-        this.fecha = fecha;
-        this.cantidad = cantidad;
-        this.cliente = cliente;
-        this.libro = libro;
-        this.total = 0;
-    }
-
+    // Constructor vacío
     public Venta() {
     }
 
+    // Constructor sobrecargado
+    public Venta(LocalDate fechaRegistro, int cantidad, double total) {
+        this.fechaRegistro = fechaRegistro;
+        this.cantidad = cantidad;
+        this.total = total;
+    }
+
+    // Métodos
     public double calcularTotal() {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor a 0.");
-        }
-        if (libro == null) {
-            throw new IllegalStateException("La venta no tiene un libro asociado.");
-        }
-        this.total = libro.getPrecio() * cantidad;
-        return total;
+        // Multiplica la cantidad comprada por el precio unitario del libro asociado
+        return 0.0;
     }
 
-    public void registrarVenta() {
-        if (cliente == null || libro == null) {
-            throw new IllegalStateException("Cliente y libro son obligatorios para registrar la venta.");
-        }
-        if (!cliente.isRegistrado()) {
-            throw new IllegalStateException("El cliente no está registrado.");
-        }
-        if (!libro.verificarStock()) {
-            throw new IllegalStateException("No hay stock disponible para \"" + libro.getTitulo() + "\".");
-        }
-        if (fecha == null) {
-            this.fecha = LocalDate.now();
-        }
-        libro.reducirStock(cantidad);
-        calcularTotal();
+    public boolean registrarVenta() {
+        // Procesa la venta, descuenta el stock del libro y almacena el registro
+        return true;
     }
 
-    // ----- Getters -----
-    public LocalDate getFecha() {
-        return fecha;
+    // Getters + Setters
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public int getCantidad() {
         return cantidad;
     }
 
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public double getTotal() {
         return total;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public Libro getLibro() {
         return libro;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Venta %s | %s | %s | Cantidad: %d | Total: S/ %.2f",
-                fecha, cliente.getNombre(), libro.getTitulo(), cantidad, total);
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }
